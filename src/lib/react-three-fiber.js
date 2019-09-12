@@ -1054,7 +1054,11 @@ const Canvas = memo(props => {
     if (props.shadowMap) {
       // https://github.com/expo/expo-three/issues/38
       gl.createRenderbuffer = () => ({});
-    }
+    } // Polyfill missing methods
+
+    gl.setPixelRatio = () => null;
+
+    gl.setSize = () => null;
 
     const pixelRatio = PixelRatio.get();
     const renderer = new Renderer$1({

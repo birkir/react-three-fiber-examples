@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "react-three-fiber-example",
+    "name": "react-three-fiber Kitchen Sink",
     "slug": "react-three-fiber-example",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -26,6 +26,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "description": "This is a Kitchen Sink example for react-three-fiber in React Native. Includes ARKit, Cannon physics and more."
   }
 }
