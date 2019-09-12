@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react'
 import * as THREE from 'three'
-import { Canvas, useRender } from 'react-three-fiber'
+import { Canvas, useFrame } from '../lib/react-three-fiber'
 import { useSpring, animated } from 'react-spring/three'
 
 function Octahedron() {
@@ -21,7 +21,7 @@ function Octahedron() {
         <geometry attach="geometry" vertices={vertices.map(v => new THREE.Vector3(...v))} />
         <animated.lineBasicMaterial attach="material" color={color} />
       </animated.line>
-      <animated.mesh onPointerUp={e => setActive(!active)} onPointerOver={e => setHover(true)} onPointerOut={e => setHover(false)} {...props}>
+      <animated.mesh onClick={e => setActive(!active)} onPointerOver={e => setHover(true)} onPointerOut={e => setHover(false)} {...props}>
         <octahedronGeometry attach="geometry" />
         <meshStandardMaterial attach="material" color="grey" transparent />
       </animated.mesh>
@@ -32,7 +32,7 @@ function Octahedron() {
 function StarsBackground() {
   let group = useRef()
   let theta = 0
-  useRender(() => {
+  useFrame(() => {
     // Some things maybe shouldn't be declarative, we're in the render-loop here with full access to the instance
     const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.1)))
     const s = Math.cos(THREE.Math.degToRad(theta * 2))

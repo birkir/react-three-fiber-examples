@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect, useCallback, useMemo } from 'react'
-import { extend, Canvas, useRender, useThree } from 'react-three-fiber'
+import { extend, Canvas, useFrame, useThree } from '../lib/react-three-fiber'
 import { useSprings, a } from 'react-spring/three'
 import * as THREE from 'three'
 
@@ -52,7 +52,7 @@ function Effect() {
   const composer = useRef()
   const { scene, gl, size, camera } = useThree()
   useEffect(() => void composer.current.setSize(size.width, size.height), [size])
-  useRender(({ gl }) => void ((gl.autoClear = true), composer.current.render()), true)
+  useFrame(({ gl }) => void ((gl.autoClear = true), composer.current.render()), true)
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />

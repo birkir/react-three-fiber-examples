@@ -1,9 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef, useEffect, useState, useCallback, useContext, useMemo } from 'react'
-import { extend, Canvas, useThree, useRender } from 'react-three-fiber'
-
-const OrbitControls = require('../resources/controls');
-extend({ OrbitControls })
+import { Canvas, useThree } from '../lib/react-three-fiber'
+import { useControls } from '../hooks/useControls'
 
 function useHover(stopPropagation = true) {
   const [hovered, setHover] = useState(false)
@@ -89,22 +87,14 @@ function Line({ defaultStart, defaultEnd }) {
 const camContext = React.createContext()
 
 function Controls({ children }) {
-  const controls = useRef()
   const api = useState(true)
-  const { size, camera, setControls } = useThree()
-
-  useEffect(() => {
-    if (controls.current) {
-      controls.current.clientWidth = size.width;
-      controls.current.clientHeight = size.height;
-      setControls(controls.current);
-    }
-  }, []);
+  const { size, camera } = useThree()
+  const controls = useControls()
 
   return (
     <>
       <group>
-        <orbitControls ref={controls} args={[camera]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
+        <orbitControls ref={controls} args={[camera, size.width, size.height]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
         <camContext.Provider value={api}>{children}</camContext.Provider>
       </group>
     </>

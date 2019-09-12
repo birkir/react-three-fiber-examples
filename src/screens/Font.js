@@ -1,10 +1,8 @@
 import * as THREE from 'three'
-import React, { useState, useRef, useContext, useEffect, useCallback, useMemo } from 'react'
-import { extend, Canvas, useRender, useThree, useResource } from 'react-three-fiber'
+import React, { useState, useMemo } from 'react'
+import { Canvas, useThree, useResource } from '../lib/react-three-fiber'
+import { useControls } from '../hooks/useControls'
 import fontFile from '../resources/fonts/unknown'
-
-const OrbitControls = require('../resources/controls');
-extend({ OrbitControls })
 
 /** This renders text via canvas and projects it as a sprite */
 function Text({ children, size = 1, letterSpacing = 0.01, color = '#000000' }) {
@@ -37,36 +35,13 @@ function Text({ children, size = 1, letterSpacing = 0.01, color = '#000000' }) {
 }
 
 function Content() {
-  const camera = useRef()
-  const controls = useRef()
-  const { size, setDefaultCamera, setControls } = useThree()
-
-  useEffect(() => void setDefaultCamera(camera.current), [])
-  useEffect(() => {
-    if (controls.current) {
-      controls.current.clientWidth = size.width;
-      controls.current.clientHeight = size.height;
-      setControls(controls.current);
-    }
-  }, [controls.current]);
-
+  const { size, camera } = useThree()
+  const controls = useControls()
   return (
-    <>
-      <perspectiveCamera
-        ref={camera}
-        aspect={size.width / size.height}
-        radius={(size.width + size.height) / 4}
-        fov={55}
-        position={[0, 0, 5]}
-        onUpdate={self => self.updateProjectionMatrix()}
-      />
-      {camera.current && (
-        <group>
-          <orbitControls ref={controls} args={[camera.current]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
-          <Text>lorem</Text>
-        </group>
-      )}
-    </>
+    <group>
+      <orbitControls ref={controls} args={[camera, size.width, size.height]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
+      <Text>lorem</Text>
+    </group>
   )
 }
 

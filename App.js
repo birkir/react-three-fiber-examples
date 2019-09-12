@@ -11,6 +11,8 @@ import { Montage } from './src/screens/Montage';
 import { Font } from './src/screens/Font';
 import { Lines } from './src/screens/Lines';
 import { MeshLine } from './src/screens/MeshLine';
+import { HelloWorld } from './src/screens/HelloWorld';
+import { ARKit } from './src/screens/ARKit';
 
 useScreens();
 
@@ -27,6 +29,7 @@ window.performance = {
 }
 
 const menuItems = [
+  { key: 'HelloWorld', value: 'Hello World' },
   { key: 'Physics', value: 'Physics' },
   { key: 'Stars', value: 'Stars' },
   { key: 'Reparenting', value: 'Reparenting' },
@@ -35,6 +38,7 @@ const menuItems = [
   { key: 'Font', value: 'Font' },
   { key: 'Lines', value: 'Lines' },
   { key: 'MeshLine', value: 'MeshLine' },
+  { key: 'ARKit', value: 'ARKit' }
 ];
 
 function Main(props) {
@@ -53,6 +57,7 @@ Main.navigationOptions = {
 
 const AppNavigator = createStackNavigator({
   Main,
+  HelloWorld,
   Physics,
   Stars,
   Reparenting,
@@ -61,6 +66,7 @@ const AppNavigator = createStackNavigator({
   Font,
   Lines,
   MeshLine,
+  ARKit
 }, {
   initialRouteName: 'Main',
 });

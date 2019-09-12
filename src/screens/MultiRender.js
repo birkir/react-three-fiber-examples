@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { View } from 'react-native';
-import { Canvas, useRender } from 'react-three-fiber'
+import { Canvas, useFrame } from '../lib/react-three-fiber'
 
 const CanvasStyle = {
   width: '100%',
@@ -9,7 +9,7 @@ const CanvasStyle = {
 
 const Obj = () => {
   const meshRef = useRef()
-  useRender(() => {
+  useFrame(() => {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.03
     }

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import React, { useEffect, useState } from 'react'
-import { Canvas } from 'react-three-fiber'
+import { Canvas } from '../lib/react-three-fiber'
 import { useCannon, Provider } from '../hooks/useCannon'
 
 function Plane({ position }) {
@@ -40,7 +40,8 @@ export function Physics() {
   return (
     <Canvas
       camera={{ position: [0, 0, 15] }}
-      onCreated={({ gl }) => ((gl.shadowMap.enabled = true), (gl.shadowMap.type = THREE.PCFSoftShadowMap))}>
+      shadowMap
+    >
       <ambientLight intensity={0.5} />
       <spotLight intensity={0.6} position={[30, 30, 50]} angle={0.2} penumbra={1} castShadow />
       <Provider>
